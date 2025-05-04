@@ -3,17 +3,32 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({ 512, 512 }), "Trex", sf::Style::Close | sf::Style::Resize);
-    sf::RectangleShape Trex(sf::Vector2f(60.0f, 60.0f));
-    Trex.setPosition({ 20.0f, 335.0f });
-    sf::Texture TrexTexture;
-    TrexTexture.loadFromFile("Trex_texture2.png");
-    Trex.setTexture(&TrexTexture);
-    
-    sf::RectangleShape Ziemia(sf::Vector2f(512.0f, 512.0f));
+    sf::RenderWindow window(sf::VideoMode({ 800, 413 }), "Trex", sf::Style::Close | sf::Style::Resize);
+
+    sf::Texture TrexTextureIdle;
+	sf::Texture TrexTextureRun;
+    TrexTextureIdle.loadFromFile("olaf/base/idle.png");
+	TrexTextureRun.loadFromFile("olaf/base/move.png");
+
+	sf::Sprite Trex(TrexTextureIdle);
+	int frameWidth = 24;
+    Trex.setTextureRect({ {0,0}, {24,24} });
+    Trex.setOrigin({Trex.getTextureRect().size.x / 2.0f, Trex.getTextureRect().size.y / 2.0f });
+	Trex.setPosition({ 200, 200 });
+	Trex.setScale({ 4.0f, 4.0f });
+	float timer = 0.0f;
+	float switchTime = 15.0f;
+
+
+
+
+    sf::RectangleShape Ziemia(sf::Vector2f(1440.0f, 413.0f));
+    sf::RectangleShape Ziemia2(sf::Vector2f(1440.0f, 413.0f));
     sf::Texture ZiemiaTexture;
-    ZiemiaTexture.loadFromFile("ground_texture.jpg");
+    ZiemiaTexture.loadFromFile("desertday.jpg");
     Ziemia.setTexture(&ZiemiaTexture);
+	Ziemia2.setTexture(&ZiemiaTexture);
+	Ziemia2.setPosition({ 1440.0f, 100.0f});
 
     while (window.isOpen())
     {
@@ -23,13 +38,27 @@ int main()
                 window.close();
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-            Trex.move({ 0.1f, 0.0f });
+		timer += 0.1f;
+        if (timer >= switchTime) {
+
+            frameWidth += 24;
+
+			if (frameWidth >= TrexTextureIdle.getSize().x)
+				frameWidth = 0; 
+
+            if (frameWidth < TrexTextureIdle.getSize().x)
+                Trex.setTextureRect({ {frameWidth , 0 }, {24, 24} });
+
+			timer = 0.0f;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){ 
+            Ziemia.move({ -0.1f, 0.0f });
+			Trex.setTexture(TrexTextureRun);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-            Trex.move({ -0.1f, 0.0f });
+            Ziemia.move({ 0.1f, 0.0f });
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
             Trex.move({ 0.0f, -0.1f });
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
