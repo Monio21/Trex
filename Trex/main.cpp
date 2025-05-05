@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Trex.h"
 
 int main()
 {
@@ -10,20 +11,18 @@ int main()
 	window.setIcon(Image.getSize(), Image.getPixelsPtr());
     sf::Texture TrexTextureIdle;
 	sf::Texture TrexTextureRun;
+	sf::Texture TrexTextureJump;
+	sf::Texture TrexTextureDeath;
     TrexTextureIdle.loadFromFile("olaf/base/idle.png");
 	TrexTextureRun.loadFromFile("olaf/base/move.png");
-
-	sf::Sprite Trex(TrexTextureIdle);
-	int frameWidth = 24;
-    Trex.setTextureRect({ {0,0}, {24,24} });
-    Trex.setOrigin({Trex.getTextureRect().size.x / 2.0f, Trex.getTextureRect().size.y / 2.0f });
-	Trex.setPosition({ 200, 200 });
-	Trex.setScale({ 4.0f, 4.0f });
-	float timer = 0.0f;
-	float switchTime = 15.0f;
-
-
-
+	TrexTextureJump.loadFromFile("olaf/base/jump.png");
+	TrexTextureDeath.loadFromFile("olaf/base/dead.png");
+	sf::Sprite Trex_sprite(TrexTextureIdle);
+	Trex trex(Trex_sprite, TrexTextureIdle, TrexTextureRun, TrexTextureJump, TrexTextureDeath);
+	trex.setTextureRect();
+    trex.setOrigin();
+	trex.setPosition(200, 200);
+    trex.setScale(4.0f, 4.0f);
 
     sf::RectangleShape Ziemia(sf::Vector2f(1440.0f, 413.0f));
     sf::RectangleShape Ziemia2(sf::Vector2f(1440.0f, 413.0f));
@@ -41,33 +40,23 @@ int main()
                 window.close();
         }
 
-		timer += 0.1f;
-        if (timer >= switchTime) {
+		trex.update(0.1f);
 
-            frameWidth += 24;
-
-			if (frameWidth >= TrexTextureIdle.getSize().x)
-				frameWidth = 0; 
-
-            if (frameWidth < TrexTextureIdle.getSize().x)
-                Trex.setTextureRect({ {frameWidth , 0 }, {24, 24} });
-
-			timer = 0.0f;
-        }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){ 
             Ziemia.move({ -0.1f, 0.0f });
 			Ziemia2.move({ -0.1f, 0.0f });
-			Trex.setTexture(TrexTextureRun);
+			trex.setTexture(2);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
             Ziemia.move({ 0.1f, 0.0f });
 			Ziemia2.move({ 0.1f, 0.0f });
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-            Trex.move({ 0.0f, -0.1f });
+            trex.move( 0.0f, -0.1);
+			trex.setTexture(3);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-            Trex.move({ 0.0f, 0.1f });
+            trex.move( 0.0f, 0.1f);
         }
         if (Ziemia.getPosition().x + 1440.0f < 0){
 			Ziemia.setPosition({ Ziemia2.getPosition().x + 1440.0f, 0.0f });
@@ -79,7 +68,7 @@ int main()
         window.clear();
         window.draw(Ziemia);
         window.draw(Ziemia2);
-        window.draw(Trex);
+		trex.draw(window);
         window.display();
     }
 }
