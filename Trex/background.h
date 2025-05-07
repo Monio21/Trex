@@ -13,6 +13,5 @@ public:
 private:
 	sf::RectangleShape rect;
 	sf::Texture texture;
-
 };
 

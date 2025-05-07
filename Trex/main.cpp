@@ -2,14 +2,23 @@
 #include <iostream>
 #include "Trex.h"
 #include "background.h"
+#include "Score.h"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 800, 413 }), "Trex", sf::Style::Close | sf::Style::Resize);
 
-	auto Image = sf::Image();
-	Image.loadFromFile("icon.png");
-	window.setIcon(Image.getSize(), Image.getPixelsPtr());
+    auto Image = sf::Image();
+    Image.loadFromFile("icon.png");
+    window.setIcon(Image.getSize(), Image.getPixelsPtr());
+
+    sf::Font score_font("arial.ttf");
+    sf::Text score_text(score_font, "Score: 0");
+    score_text.setFillColor(sf::Color::Black);
+	score_text.setCharacterSize(24);
+    score_text.setPosition({10.0f, 10.0f});
+
+    Score score(0.1f,score_text);
 
     sf::Texture TrexTextureIdle;
 	sf::Texture TrexTextureRun;
@@ -73,6 +82,8 @@ int main()
 		Ziemia.draw(window);
 		Ziemia2.draw(window);
 		trex.draw(window);
+		score.update();
+		score.draw(window);
         window.display();
     }
 }
