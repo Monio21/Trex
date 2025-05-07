@@ -12,6 +12,7 @@ public:
 	void move(float x, float y);
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
+
 private:
 	sf::Sprite sprite;
 	sf::Texture texture_idle;
