@@ -25,18 +25,20 @@ int main()
 	sf::Texture TrexTextureJump;
 	sf::Texture TrexTextureDeath;
 	sf::Texture ZiemiaTexture;
+    sf::Texture CactusTexture;
 
     TrexTextureIdle.loadFromFile("olaf/base/idle.png");
 	TrexTextureRun.loadFromFile("olaf/base/move.png");
 	TrexTextureJump.loadFromFile("olaf/base/jump.png");
 	TrexTextureDeath.loadFromFile("olaf/base/dead.png");
 	ZiemiaTexture.loadFromFile("desertday.jpg");
+	CactusTexture.loadFromFile("cactus.png");
 
 	sf::Sprite Trex_sprite(TrexTextureIdle);
 	Trex trex(Trex_sprite, TrexTextureIdle, TrexTextureRun, TrexTextureJump, TrexTextureDeath);
 	trex.setTextureRect();
     trex.setOrigin();
-	trex.setPosition(200, 200);
+	trex.setPosition(200, 300);
     trex.setScale(4.0f, 4.0f);
 
 	background Ziemia(ZiemiaTexture);
@@ -45,6 +47,12 @@ int main()
     Ziemia.setTexture();
 	Ziemia2.setPosition(1440.0f, 0.0f);
     Ziemia2.setTexture();
+
+	background cactus(CactusTexture);
+	cactus.setRect(726.0f, 344.0f);
+	cactus.setTexture();
+	cactus.setScale(0.25f, 0.25f);
+	cactus.setPosition(400.0f, 300.0f);
 
     while (window.isOpen())
     {
@@ -68,6 +76,7 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
             trex.move( 0.0f, -0.1);
 			trex.setTexture(3);
+
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
             trex.move( 0.0f, 0.1f);
@@ -84,6 +93,7 @@ int main()
 		trex.draw(window);
 		score.update();
 		score.draw(window);
+		cactus.draw(window);
         window.display();
     }
 }

@@ -9,6 +9,8 @@ public:
 	void setTexture();
 	void move(float x, float y);
 	void draw(sf::RenderWindow& window);
+	void setRect(float x, float y);
+	void setScale(float x, float y);
 
 private:
 	sf::RectangleShape rect;

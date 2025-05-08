@@ -144,12 +144,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Trex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Trex.h" />
   </ItemGroup>

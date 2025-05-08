@@ -23,5 +23,13 @@ void background::draw(sf::RenderWindow& window)
 {
 	window.draw(rect);
 }
+void background::setRect(float x, float y)
+{
+	rect.setSize({ x, y });
+}
+void background::setScale(float x, float y)
+{
+	rect.setScale({ x, y });
+}
 
 
