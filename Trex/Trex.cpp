@@ -2,7 +2,8 @@
 
 Trex::Trex(sf::Sprite sprite, sf::Texture texture_idle, sf::Texture texture_run, sf::Texture texture_jump, sf::Texture texture_death)
 	: sprite(sprite), texture_idle(texture_idle), texture_run(texture_run), texture_jump(texture_jump), texture_death(texture_death),
-	rect({ {0,0}, {24,24} }), frameWidth(24), timer(0.0f), switchTime(15.0f)
+	rect({ {0,0}, {24,24} }), frameWidth(24), timer(0.0f), switchTime(15.0f), velocityY(0.0f), gravity(300.0f), jumpHeight(400.0f),
+	isJumping(false), groundYpos(325.0f)
 {};
 void Trex::setPosition(float x, float y)
 {
@@ -35,10 +36,6 @@ void Trex::setTextureRect()
 {
 	sprite.setTextureRect(rect);
 }
-void Trex::move(float x, float y)
-{
-	sprite.move({ x, y });
-}
 void Trex::update(float deltaTime)
 {
 	
@@ -55,4 +52,22 @@ void Trex::update(float deltaTime)
 void Trex::draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+}
+void Trex::jump()
+{
+	if (!isJumping) {
+		velocityY = -jumpHeight;
+		isJumping = true;
+		setTexture(3);
+	}
+}
+void Trex::applyGravity(float deltaTime) {
+	velocityY += gravity * deltaTime;
+	sprite.move({ 0.0f, velocityY * deltaTime });
+	if (sprite.getPosition().y >= groundYpos) {
+		sprite.setPosition({ sprite.getPosition().x, groundYpos });
+		velocityY = 0.0f;
+		isJumping = false;
+		setTexture(2);
+	}
 }

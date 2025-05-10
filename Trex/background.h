@@ -7,7 +7,7 @@ public:
 	void setPosition(float x, float y);
 	sf::Vector2f getPosition();
 	void setTexture();
-	void move(float x, float y);
+	void move(float multiplier);
 	void draw(sf::RenderWindow& window);
 	void setRect(float x, float y);
 	void setScale(float x, float y);
@@ -15,5 +15,6 @@ public:
 private:
 	sf::RectangleShape rect;
 	sf::Texture texture;
+	float movementSpeed;
 };
 

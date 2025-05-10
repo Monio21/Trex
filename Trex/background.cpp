@@ -1,7 +1,7 @@
 #include "background.h"
 
 background::background(sf::Texture texture)
-	: texture(texture), rect(sf::Vector2f(1440.0f, 413.0f))
+	: texture(texture), rect(sf::Vector2f(1440.0f, 413.0f)), movementSpeed(-4.0f)
 {};
 void background::setPosition(float x, float y)
 {
@@ -15,9 +15,9 @@ void background::setTexture()
 {
 	rect.setTexture(&texture);
 }
-void background::move(float x, float y)
+void background::move(float multiplier)
 {
-	rect.move({ x, y });
+	rect.move({ movementSpeed * multiplier, 0 });
 }
 void background::draw(sf::RenderWindow& window)
 {

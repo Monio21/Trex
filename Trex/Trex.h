@@ -9,9 +9,10 @@ public:
 	void setOrigin();
 	void setTexture(int phase);
 	void setTextureRect();
-	void move(float x, float y);
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
+	void jump();
+	void applyGravity(float deltaTime);
 
 private:
 	sf::Sprite sprite;
@@ -24,5 +25,10 @@ private:
 	int frameWidth;
 	float timer;
 	float switchTime;
+	float velocityY;
+	float gravity;
+	float jumpHeight;
+	bool isJumping;
+	float groundYpos;
 };
 
