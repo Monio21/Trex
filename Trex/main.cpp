@@ -14,13 +14,18 @@ int main()
     Image.loadFromFile("icon.png");
     window.setIcon(Image.getSize(), Image.getPixelsPtr());
 
-    sf::Font score_font("arial.ttf");
-    sf::Text score_text(score_font, "Score: 0");
+    sf::Font font("arial.ttf");
+    sf::Text score_text(font, "Score: 0");
     score_text.setFillColor(sf::Color::Black);
-	score_text.setCharacterSize(24);
+	score_text.setCharacterSize(30);
     score_text.setPosition({10.0f, 10.0f});
 
-    Score score(3.0f,score_text);
+	sf::Text start_text(font, "Press SPACE to start");
+	start_text.setFillColor(sf::Color::Black);
+	start_text.setCharacterSize(60);
+	start_text.setPosition({ 200.0f, 206.0f });
+
+    Score score(4.0f,score_text);
 
     sf::Texture TrexTextureIdle;
 	sf::Texture TrexTextureRun;
@@ -58,6 +63,7 @@ int main()
 
 	float multiplier = 1.0f;
     int frames = 0;
+	bool start = false;
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
@@ -65,45 +71,59 @@ int main()
             if (event->is<sf::Event::Closed>())
                 window.close();
         }
-		++frames;
-		std::cout << frames << std::endl;
-		if (multiplier < 2.5) {
-			if ((frames % 100) == 0) {
-				multiplier += 0.15f;
-			}
-		}
-		if (multiplier >= 2.5) {
-			std::cout << "Max speed reached" << std::endl;
-			std::cout << "Max speed reached" << std::endl;
-			std::cout << "Max speed reached" << std::endl;
-			std::cout << "Max speed reached" << std::endl;
-		}
-		trex.update(1.0f);
 
-        Ziemia.move(multiplier);
-		Ziemia2.move(multiplier);
-        cactus.move(multiplier);
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-			trex.jump();
-			trex.setTexture(3);
-
-        }
-
-        if (Ziemia.getPosition().x + 1440.0f < 0){
-			Ziemia.setPosition( Ziemia2.getPosition().x + 1440.0f, 0.0f );
-        }
-        if (Ziemia2.getPosition().x + 1440.0f < 0) {
-            Ziemia2.setPosition(Ziemia.getPosition().x + 1440.0f, 0.0f );
-        }
-
-		trex.applyGravity(0.1f);
-
-        window.clear();
+		window.clear();
 		Ziemia.draw(window);
 		Ziemia2.draw(window);
+
+		trex.update(1.0f);
+		
+		if (!start) {
+			window.draw(start_text);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+			start = true;
+		}
+		if (start) {
+
+			++frames;
+			std::cout << frames << std::endl;
+
+			if (multiplier < 2.5) {
+				if ((frames % 100) == 0) {
+					multiplier += 0.15f;
+				}
+			}
+			if (multiplier >= 2.5) {
+				std::cout << "Max speed reached" << std::endl;
+				std::cout << "Max speed reached" << std::endl;
+				std::cout << "Max speed reached" << std::endl;
+				std::cout << "Max speed reached" << std::endl;
+			}
+
+			Ziemia.move(multiplier);
+			Ziemia2.move(multiplier);
+			cactus.move(multiplier);
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+				trex.jump();
+				trex.setTexture(3);
+
+			}
+
+			if (Ziemia.getPosition().x + 1440.0f < 0) {
+				Ziemia.setPosition(Ziemia2.getPosition().x + 1440.0f, 0.0f);
+			}
+			if (Ziemia2.getPosition().x + 1440.0f < 0) {
+				Ziemia2.setPosition(Ziemia.getPosition().x + 1440.0f, 0.0f);
+			}
+
+			trex.applyGravity(0.1f);
+			score.update(multiplier);
+		}
+    
 		trex.draw(window);
-		score.update(multiplier);
 		score.draw(window);
 		cactus.draw(window);
         window.display();
