@@ -31,5 +31,9 @@ void background::setScale(float x, float y)
 {
 	rect.setScale({ x, y });
 }
+sf::FloatRect background::getGlobalBounds()
+{
+	return rect.getGlobalBounds();
+}
 
 

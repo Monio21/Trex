@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 class Trex
 {
 public:
@@ -12,7 +13,8 @@ public:
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
 	void jump();
-	void applyGravity(float deltaTime);
+	void applyGravity();
+	sf::FloatRect getGlobalBounds();
 
 private:
 	sf::Sprite sprite;

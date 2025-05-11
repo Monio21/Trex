@@ -2,7 +2,7 @@
 
 Trex::Trex(sf::Sprite sprite, sf::Texture texture_idle, sf::Texture texture_run, sf::Texture texture_jump, sf::Texture texture_death)
 	: sprite(sprite), texture_idle(texture_idle), texture_run(texture_run), texture_jump(texture_jump), texture_death(texture_death),
-	rect({ {0,0}, {24,24} }), frameWidth(24), timer(0.0f), switchTime(15.0f), velocityY(0.0f), gravity(300.0f), jumpHeight(300.0f),
+	rect({ {0,0}, {24,24} }), frameWidth(24), timer(0.0f), switchTime(0.1f), velocityY(0.0f), gravity(300.0f), jumpHeight(300.0f),
 	isJumping(false), groundYpos(325.0f)
 {};
 void Trex::setPosition(float x, float y)
@@ -61,13 +61,17 @@ void Trex::jump()
 		setTexture(3);
 	}
 }
-void Trex::applyGravity(float deltaTime) {
-	velocityY += gravity * deltaTime;
-	sprite.move({ 0.0f, velocityY * deltaTime });
+void Trex::applyGravity() {
+	velocityY += gravity * 0.03f;
+	sprite.move({ 0.0f, velocityY * 0.03f });
 	if (sprite.getPosition().y >= groundYpos) {
 		sprite.setPosition({ sprite.getPosition().x, groundYpos });
 		velocityY = 0.0f;
 		isJumping = false;
 		setTexture(2);
 	}
+}
+sf::FloatRect Trex::getGlobalBounds()
+{
+	return sprite.getGlobalBounds();
 }

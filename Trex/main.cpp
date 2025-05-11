@@ -3,6 +3,7 @@
 #include "Trex.h"
 #include "background.h"
 #include "Score.h"
+#include "Collider.h"
 
 int main()
 {
@@ -13,6 +14,10 @@ int main()
     auto Image = sf::Image();
     Image.loadFromFile("icon.png");
     window.setIcon(Image.getSize(), Image.getPixelsPtr());
+
+
+	sf::Clock clock;
+	
 
     sf::Font font("arial.ttf");
     sf::Text score_text(font, "Score: 0");
@@ -56,7 +61,7 @@ int main()
     Ziemia2.setTexture();
 
 	background cactus(CactusTexture);
-	cactus.setRect(726.0f, 344.0f);
+	cactus.setRect(246.0f, 306.0f);
 	cactus.setTexture();
 	cactus.setScale(0.25f, 0.25f);
 	cactus.setPosition(400.0f, 300.0f);
@@ -64,6 +69,7 @@ int main()
 	float multiplier = 1.0f;
     int frames = 0;
 	bool start = false;
+
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
@@ -76,15 +82,17 @@ int main()
 		Ziemia.draw(window);
 		Ziemia2.draw(window);
 
-		trex.update(1.0f);
+		float deltaTime = clock.restart().asSeconds();
+
+		trex.update(deltaTime);
 		
 		if (!start) {
 			window.draw(start_text);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
+				start = true;
+			}
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-			start = true;
-		}
 		if (start) {
 
 			++frames;
@@ -119,8 +127,13 @@ int main()
 				Ziemia2.setPosition(Ziemia.getPosition().x + 1440.0f, 0.0f);
 			}
 
-			trex.applyGravity(0.03f);
+			trex.applyGravity();
 			score.update(multiplier);
+
+			if (Collider::checkCollision(trex.getGlobalBounds(), cactus.getGlobalBounds())) {
+				trex.setTexture(4);
+				start = false;
+			}
 		}
     
 		trex.draw(window);

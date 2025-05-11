@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 class background 
 {
 public:
@@ -11,6 +12,7 @@ public:
 	void draw(sf::RenderWindow& window);
 	void setRect(float x, float y);
 	void setScale(float x, float y);
+	sf::FloatRect getGlobalBounds();
 
 private:
 	sf::RectangleShape rect;
