@@ -58,8 +58,8 @@ int main()
 	background cactus(CactusTexture);
 	cactus.setRect(726.0f, 344.0f);
 	cactus.setTexture();
-	cactus.setScale(0.3f, 0.3f);
-	cactus.setPosition(400.0f, 280.0f);
+	cactus.setScale(0.25f, 0.25f);
+	cactus.setPosition(400.0f, 300.0f);
 
 	float multiplier = 1.0f;
     int frames = 0;
@@ -91,7 +91,7 @@ int main()
 			std::cout << frames << std::endl;
 
 			if (multiplier < 2.5) {
-				if ((frames % 100) == 0) {
+				if ((frames % 500) == 0) {
 					multiplier += 0.15f;
 				}
 			}
@@ -119,7 +119,7 @@ int main()
 				Ziemia2.setPosition(Ziemia.getPosition().x + 1440.0f, 0.0f);
 			}
 
-			trex.applyGravity(0.1f);
+			trex.applyGravity(0.03f);
 			score.update(multiplier);
 		}
     
