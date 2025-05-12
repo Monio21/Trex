@@ -25,7 +25,7 @@ int main()
 	score_text.setCharacterSize(30);
     score_text.setPosition({10.0f, 10.0f});
 
-	sf::Text start_text(font, "Press SPACE to start");
+	sf::Text start_text(font, "Press ENTER to start");
 	start_text.setFillColor(sf::Color::Black);
 	start_text.setCharacterSize(60);
 	start_text.setPosition({ 200.0f, 206.0f });
@@ -50,7 +50,7 @@ int main()
 	Trex trex(Trex_sprite, TrexTextureIdle, TrexTextureRun, TrexTextureJump, TrexTextureDeath);
 	trex.setTextureRect();
     trex.setOrigin();
-	trex.setPosition(80, 320);
+	trex.setPosition(80, 300);
     trex.setScale(6.0f, 6.0f);
 
 	background Ziemia(ZiemiaTexture);
@@ -61,14 +61,22 @@ int main()
     Ziemia2.setTexture();
 
 	background cactus(CactusTexture);
-	cactus.setRect(246.0f, 306.0f);
+	cactus.setRect(230.0f, 295.0f);
 	cactus.setTexture();
-	cactus.setScale(0.25f, 0.25f);
-	cactus.setPosition(400.0f, 300.0f);
+	cactus.setScale(0.20f, 0.20f);
+	cactus.setPosition(400.0f, 325.0f);
+	background cactus2(CactusTexture);
+	cactus2.setRect(230.0f, 295.0f);
+	cactus2.setTexture();
+	cactus2.setScale(0.20f, 0.20f);
+	cactus2.setPosition(450.0f, 325.0f);
 
 	float multiplier = 1.0f;
     int frames = 0;
 	bool start = false;
+	bool death = false;
+	float time_to_switch = 0.0f;
+	
 
     while (window.isOpen())
     {
@@ -86,6 +94,20 @@ int main()
 
 		trex.update(deltaTime);
 		
+		if (death) {
+			time_to_switch += deltaTime;
+			if (time_to_switch > 0.5f) {
+				trex.setTexture(1);
+				Ziemia.setPosition(0.0f, 0.0f);
+				Ziemia2.setPosition(1440.0f, 0.0f);
+				cactus.setPosition(400.0f, 325.0f);
+				cactus2.setPosition(450.0f, 325.0f);
+				trex.setPosition(80.0f, 300.0f);
+				death = false;
+				time_to_switch = 0.0f;
+			}
+		}
+
 		if (!start) {
 			window.draw(start_text);
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
@@ -113,6 +135,7 @@ int main()
 			Ziemia.move(multiplier);
 			Ziemia2.move(multiplier);
 			cactus.move(multiplier);
+			cactus2.move(multiplier);
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 				trex.jump();
@@ -131,14 +154,18 @@ int main()
 			score.update(multiplier);
 
 			if (Collider::checkCollision(trex.getGlobalBounds(), cactus.getGlobalBounds())) {
+				
 				trex.setTexture(4);
+				death = true;
 				start = false;
+				score.reset();
 			}
 		}
     
 		trex.draw(window);
 		score.draw(window);
 		cactus.draw(window);
+		cactus2.draw(window);
         window.display();
     }
 }
