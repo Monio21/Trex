@@ -110,7 +110,7 @@ int main()
 
 		if (!start) {
 			window.draw(start_text);
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) && !death) {
 				start = true;
 			}
 		}
