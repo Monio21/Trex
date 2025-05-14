@@ -64,12 +64,12 @@ int main()
 	cactus.setRect(230.0f, 295.0f);
 	cactus.setTexture();
 	cactus.setScale(0.20f, 0.20f);
-	cactus.setPosition(400.0f, 325.0f);
+	cactus.setPosition(420.0f, 325.0f);
 	background cactus2(CactusTexture);
 	cactus2.setRect(230.0f, 295.0f);
 	cactus2.setTexture();
 	cactus2.setScale(0.20f, 0.20f);
-	cactus2.setPosition(450.0f, 325.0f);
+	cactus2.setPosition(470.0f, 325.0f);
 
 	float multiplier = 1.0f;
     int frames = 0;
