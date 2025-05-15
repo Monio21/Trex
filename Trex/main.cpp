@@ -162,12 +162,8 @@ int main()
 			trex.applyGravity();
 			score.update(multiplier);
 
-			if (Collider::checkCollision(trex.getGlobalBounds(), cactus.getGlobalBounds())) {
-				
-				trex.setTexture(4);
-				death = true;
-				start = false;
-			}
+			Collider::checkCollision(trex, cactus.getGlobalBounds(), death, start);
+			Collider::checkCollision(trex, cactus2.getGlobalBounds(), death, start);
 		}
     
 		trex.draw(window);

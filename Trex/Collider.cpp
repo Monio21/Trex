@@ -1,5 +1,9 @@
 #include "Collider.h"
 
-bool Collider::checkCollision(sf::FloatRect rect1, sf::FloatRect rect2) {
-	return rect1.findIntersection(rect2).has_value();
+void Collider::checkCollision(Trex &trex, sf::FloatRect rect2, bool& death, bool& start) {
+	if (trex.getGlobalBounds().findIntersection(rect2).has_value()) {
+		trex.setTexture(4);
+		death = true;
+		start = false;
+	 }
 }
