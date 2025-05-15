@@ -30,6 +30,11 @@ int main()
 	start_text.setCharacterSize(60);
 	start_text.setPosition({ 200.0f, 206.0f });
 
+	sf::Text end_text(font);
+	end_text.setFillColor(sf::Color::Black);
+	end_text.setCharacterSize(60);
+	end_text.setPosition({ 100.0f, 100.0f });
+
     Score score(4.0f,score_text);
 
     sf::Texture TrexTextureIdle;
@@ -97,13 +102,13 @@ int main()
 		if (death) {
 			time_to_switch += deltaTime;
 			if (time_to_switch > 0.5f) {
-				trex.setTexture(1);
-				Ziemia.setPosition(0.0f, 0.0f);
-				Ziemia2.setPosition(1440.0f, 0.0f);
-				cactus.setPosition(400.0f, 325.0f);
-				cactus2.setPosition(450.0f, 325.0f);
-				trex.setPosition(80.0f, 300.0f);
-				death = false;
+					trex.setTexture(1);
+					Ziemia.setPosition(0.0f, 0.0f);
+					Ziemia2.setPosition(1440.0f, 0.0f);
+					cactus.setPosition(400.0f, 325.0f);
+					cactus2.setPosition(450.0f, 325.0f);
+					trex.setPosition(80.0f, 300.0f);
+					death = false;
 				time_to_switch = 0.0f;
 			}
 		}
@@ -112,11 +117,15 @@ int main()
 			window.draw(start_text);
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) && !death) {
 				start = true;
+				score.reset();
+			}
+			if (death) {
+				end_text.setString("Your Score: " + std::to_string(score.getScore()));
+				window.draw(end_text);
 			}
 		}
 
 		if (start) {
-
 			++frames;
 			std::cout << frames << std::endl;
 
@@ -158,7 +167,6 @@ int main()
 				trex.setTexture(4);
 				death = true;
 				start = false;
-				score.reset();
 			}
 		}
     

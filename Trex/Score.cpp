@@ -18,5 +18,8 @@ void Score::reset() {
 	score = 0;
 }
 int Score::getScore() {
+	return score;
+}
+int Score::getHighScore() {
 	return highscore;
 }

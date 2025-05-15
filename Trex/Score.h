@@ -9,6 +9,7 @@ public:
 	void draw(sf::RenderWindow& window);
 	void reset();
 	int getScore();
+	int getHighScore();
 private:
 	sf::Text text;
 	float distance;
