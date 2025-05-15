@@ -6,6 +6,8 @@ class Trex : public Character
 {
 public:
 	Trex(sf::Sprite sprite, sf::Texture texture_idle, sf::Texture texture_run, sf::Texture texture_jump, sf::Texture texture_death);
+	~Trex() = default;
+
 	void setTexture(int phase) override;
 	void setTextureRect() override;
 	void update(float deltaTime) override;

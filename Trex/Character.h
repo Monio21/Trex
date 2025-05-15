@@ -4,7 +4,6 @@ class Character
 {
 public:
 	Character(sf::Sprite sprite);
-
 	virtual ~Character() = default;
 
 	virtual void setPosition(float x, float y);

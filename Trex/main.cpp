@@ -11,6 +11,9 @@ int main()
     sf::RenderWindow window(sf::VideoMode({ 900, 413 }), "Trex", sf::Style::Close | sf::Style::Resize);
     window.setFramerateLimit(120);
 
+	std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+
     auto Image = sf::Image();
     Image.loadFromFile("icon.png");
     window.setIcon(Image.getSize(), Image.getPixelsPtr());
@@ -69,12 +72,17 @@ int main()
 	cactus.setRect(230.0f, 295.0f);
 	cactus.setTexture();
 	cactus.setScale(0.20f, 0.20f);
-	cactus.setPosition(420.0f, 325.0f);
+	cactus.setPosition(900.0f, 325.0f);
 	background cactus2(CactusTexture);
 	cactus2.setRect(230.0f, 295.0f);
 	cactus2.setTexture();
 	cactus2.setScale(0.20f, 0.20f);
-	cactus2.setPosition(470.0f, 325.0f);
+	cactus2.setPosition(950.0f, 325.0f);
+	background cactus3(CactusTexture);
+	cactus3.setRect(230.0f, 295.0f);
+	cactus3.setTexture();
+	cactus3.setScale(0.20f, 0.20f);
+	cactus3.setPosition(1500.0f, 325.0f);
 
 	float multiplier = 1.0f;
     int frames = 0;
@@ -105,8 +113,9 @@ int main()
 					trex.setTexture(1);
 					Ziemia.setPosition(0.0f, 0.0f);
 					Ziemia2.setPosition(1440.0f, 0.0f);
-					cactus.setPosition(400.0f, 325.0f);
-					cactus2.setPosition(450.0f, 325.0f);
+					cactus.setPosition(900.0f, 325.0f);
+					cactus2.setPosition(1400.0f, 325.0f);
+					cactus3.setPosition(1900.0f, 325.0f);
 					trex.setPosition(80.0f, 300.0f);
 					death = false;
 				time_to_switch = 0.0f;
@@ -122,6 +131,7 @@ int main()
 			if (death) {
 				end_text.setString("Your Score: " + std::to_string(score.getScore()));
 				window.draw(end_text);
+				multiplier = 1.0f;
 			}
 		}
 
@@ -134,7 +144,7 @@ int main()
 					multiplier += 0.15f;
 				}
 			}
-			if (multiplier >= 2.5) {
+			else {
 				std::cout << "Max speed reached" << std::endl;
 				std::cout << "Max speed reached" << std::endl;
 				std::cout << "Max speed reached" << std::endl;
@@ -143,8 +153,9 @@ int main()
 
 			Ziemia.move(multiplier);
 			Ziemia2.move(multiplier);
-			cactus.move(multiplier);
-			cactus2.move(multiplier);
+			cactus.moveAndReset(multiplier);
+			cactus2.moveAndReset(multiplier);
+			cactus3.moveAndReset(multiplier);
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 				trex.jump();
@@ -164,12 +175,18 @@ int main()
 
 			Collider::checkCollision(trex, cactus.getGlobalBounds(), death, start);
 			Collider::checkCollision(trex, cactus2.getGlobalBounds(), death, start);
+			Collider::checkCollision(trex, cactus3.getGlobalBounds(), death, start);
 		}
     
 		trex.draw(window);
 		score.draw(window);
 		cactus.draw(window);
 		cactus2.draw(window);
+		cactus3.draw(window);
         window.display();
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+			window.close();
+		}
     }
 }

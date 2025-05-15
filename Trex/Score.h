@@ -5,6 +5,8 @@ class Score
 {
 public:
 	Score(float scrollSpeed, sf::Text text);
+	~Score() = default;
+
 	void update(float multiplier);
 	void draw(sf::RenderWindow& window);
 	void reset();
