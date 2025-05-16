@@ -15,9 +15,9 @@ void Cactus::moveAndReset(float multiplier) {
 	rect.move({ movementSpeed * multiplier, 0 });
 
 	static std::mt19937 generate(static_cast<unsigned int>(std::time(nullptr)));
-	int min = static_cast<int>(500 + (multiplier - 1.0f) * 150);
+	int min = static_cast<int>(700 + (multiplier - 1.0f) * 150);
 	int max = min + 300;
-	static std::uniform_int_distribution<int> distance(min, max);
+	std::uniform_int_distribution<int> distance(min, max);
 
 	if (rect.getPosition().x < -20.0f) {
 		float x = 900 + (static_cast<float>(distance(generate)) * multiplier);

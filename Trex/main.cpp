@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include "Trex.h"
 #include "background.h"
@@ -17,6 +18,18 @@ int main()
     Image.loadFromFile("icon.png");
     window.setIcon(Image.getSize(), Image.getPixelsPtr());
 
+	sf::Music music("Jurassic Park theme song..ogg");
+	music.setVolume(50.0f);
+	music.play();
+	music.setLooping(true);
+	music.setPlayingOffset(sf::seconds(30.0f));
+
+	sf::SoundBuffer jump_buffer("jump.ogg");
+	sf::SoundBuffer point_buffer("point.ogg");
+	sf::SoundBuffer death_buffer("die.ogg");
+	sf::Sound jump_sound(jump_buffer);
+	sf::Sound point_sound(point_buffer);
+	sf::Sound death_sound(death_buffer);
 
 	sf::Clock clock;
 	
@@ -147,6 +160,7 @@ int main()
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 				trex.jump();
+				jump_sound.play();
 				trex.setTexture(3);
 
 			}
@@ -161,9 +175,9 @@ int main()
 			trex.applyGravity();
 			score.update(multiplier);
 
-			Collider::checkCollision(trex, cactus.getGlobalBounds(), death, start);
-			Collider::checkCollision(trex, cactus2.getGlobalBounds(), death, start);
-			Collider::checkCollision(trex, cactus3.getGlobalBounds(), death, start);
+			Collider::checkCollision(trex, cactus.getGlobalBounds(), death, start, death_sound);
+			Collider::checkCollision(trex, cactus2.getGlobalBounds(), death, start, death_sound);
+			Collider::checkCollision(trex, cactus3.getGlobalBounds(), death, start, death_sound);
 		}
     
 		trex.draw(window);
@@ -175,6 +189,7 @@ int main()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
 			window.close();
+			music.stop();
 		}
     }
 }
