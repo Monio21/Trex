@@ -7,19 +7,15 @@ class background
 {
 public:
 	background(sf::Texture texture);
-	~background() = default;
+	virtual ~background() = default;
 
-	void setPosition(float x, float y);
-	sf::Vector2f getPosition();
-	void setTexture();
-	void move(float multiplier);
-	void draw(sf::RenderWindow& window);
-	void setRect(float x, float y);
-	void setScale(float x, float y);
-	sf::FloatRect getGlobalBounds();
-	void moveAndReset(float multiplier);
+	virtual void setPosition(float x, float y);
+	virtual sf::Vector2f getPosition();
+	virtual void move(float multiplier);
+	virtual void draw(sf::RenderWindow& window);
+	
 
-private:
+protected:
 	sf::RectangleShape rect;
 	sf::Texture texture;
 	float movementSpeed;

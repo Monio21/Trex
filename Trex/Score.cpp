@@ -1,6 +1,6 @@
 #include "Score.h"
 
-Score::Score(float scrollSpeed, sf::Text text) : distance(0.0f), scrollSpeed(scrollSpeed), score(0), text(text), highscore(0)
+Score::Score(sf::Text text) : distance(0.0f), scrollSpeed(4.0f), score(0), text(text), highscore(0)
 {};
 void Score::update(float multiplier) {
 	distance += scrollSpeed;

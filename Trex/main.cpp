@@ -4,14 +4,13 @@
 #include "background.h"
 #include "Score.h"
 #include "Collider.h"
+#include "Cactus.h"
 
 int main()
 {
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     sf::RenderWindow window(sf::VideoMode({ 900, 413 }), "Trex", sf::Style::Close | sf::Style::Resize);
     window.setFramerateLimit(120);
-
-	std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
 
     auto Image = sf::Image();
@@ -38,7 +37,7 @@ int main()
 	end_text.setCharacterSize(60);
 	end_text.setPosition({ 100.0f, 100.0f });
 
-    Score score(4.0f,score_text);
+    Score score(score_text);
 
     sf::Texture TrexTextureIdle;
 	sf::Texture TrexTextureRun;
@@ -64,24 +63,13 @@ int main()
 	background Ziemia(ZiemiaTexture);
     background Ziemia2(ZiemiaTexture);
 	Ziemia.setPosition(0.0f, 0.0f);
-    Ziemia.setTexture();
 	Ziemia2.setPosition(1440.0f, 0.0f);
-    Ziemia2.setTexture();
 
-	background cactus(CactusTexture);
-	cactus.setRect(230.0f, 295.0f);
-	cactus.setTexture();
-	cactus.setScale(0.20f, 0.20f);
+	Cactus cactus(CactusTexture);
 	cactus.setPosition(900.0f, 325.0f);
-	background cactus2(CactusTexture);
-	cactus2.setRect(230.0f, 295.0f);
-	cactus2.setTexture();
-	cactus2.setScale(0.20f, 0.20f);
+	Cactus cactus2(CactusTexture);
 	cactus2.setPosition(950.0f, 325.0f);
-	background cactus3(CactusTexture);
-	cactus3.setRect(230.0f, 295.0f);
-	cactus3.setTexture();
-	cactus3.setScale(0.20f, 0.20f);
+	Cactus cactus3(CactusTexture);
 	cactus3.setPosition(1500.0f, 325.0f);
 
 	float multiplier = 1.0f;

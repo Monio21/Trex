@@ -4,7 +4,7 @@
 class Score
 {
 public:
-	Score(float scrollSpeed, sf::Text text);
+	Score(sf::Text text);
 	~Score() = default;
 
 	void update(float multiplier);
