@@ -6,6 +6,10 @@
 #include "Score.h"
 #include "Collider.h"
 #include "Cactus.h"
+#include <filesystem>
+#include <fstream>
+#include <ctime>
+#include <iomanip>
 
 int main()
 {
@@ -84,6 +88,9 @@ int main()
 	cactus2.setPosition(950.0f, 325.0f);
 	Cactus cactus3(CactusTexture);
 	cactus3.setPosition(1500.0f, 325.0f);
+
+	std::filesystem::path path = "highscores.txt";
+	std::ofstream file(path, std::ios::app);
 
 	float multiplier = 1.0f;
     int frames = 0;
@@ -190,6 +197,17 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
 			window.close();
 			music.stop();
+			score.reset();
+			std::time_t now = std::time(nullptr);
+			std::tm local_time;
+			localtime_s(&local_time, &now);
+			
+			if (file) {
+				file << std::put_time(&local_time,"%d/%m/%Y %H:%M:%S") << " | Highscore: " << score.getHighScore();
+				file << std::endl;
+				file.close();
+			}
+
 		}
     }
 }
