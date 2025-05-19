@@ -19,20 +19,21 @@ int main()
 
 
     auto Image = sf::Image();
-    Image.loadFromFile("icon.png");
+    Image.loadFromFile("pictures/icon.png");
     window.setIcon(Image.getSize(), Image.getPixelsPtr());
 
-	sf::Music music("Jurassic Park theme song..ogg");
+	sf::Music music("audio/Jurassic Park theme song..ogg");
 	music.setVolume(50.0f);
 	music.play();
 	music.setLooping(true);
 	music.setPlayingOffset(sf::seconds(30.0f));
 
-	sf::SoundBuffer jump_buffer("jump.ogg");
-	sf::SoundBuffer point_buffer("point.ogg");
-	sf::SoundBuffer death_buffer("die.ogg");
+	sf::SoundBuffer jump_buffer("audio/jump.ogg");
+	sf::SoundBuffer point_buffer("audio/point.ogg");
+	sf::SoundBuffer death_buffer("audio/die.ogg");
 	sf::Sound jump_sound(jump_buffer);
 	sf::Sound point_sound(point_buffer);
+	point_sound.setVolume(25.0f);
 	sf::Sound death_sound(death_buffer);
 
 	sf::Clock clock;
@@ -62,13 +63,15 @@ int main()
 	sf::Texture TrexTextureDeath;
 	sf::Texture ZiemiaTexture;
     sf::Texture CactusTexture;
+	sf::Texture Ziemia2Texture;
 
     TrexTextureIdle.loadFromFile("olaf/base/idle.png");
 	TrexTextureRun.loadFromFile("olaf/base/move.png");
 	TrexTextureJump.loadFromFile("olaf/base/jump.png");
 	TrexTextureDeath.loadFromFile("olaf/base/dead.png");
-	ZiemiaTexture.loadFromFile("desertday.jpg");
-	CactusTexture.loadFromFile("cactus.png");
+	ZiemiaTexture.loadFromFile("pictures/desertday.jpg");
+	Ziemia2Texture.loadFromFile("pictures/desertnight.jpg");
+	CactusTexture.loadFromFile("pictures/cactus.png");
 
 	sf::Sprite Trex_sprite(TrexTextureIdle);
 	Trex trex(Trex_sprite, TrexTextureIdle, TrexTextureRun, TrexTextureJump, TrexTextureDeath);
@@ -117,6 +120,10 @@ int main()
 		
 		if (death) {
 			time_to_switch += deltaTime;
+			if (score.getScore() == 69)
+			{
+				music.setVolume(100.0f);
+			}
 			if (time_to_switch > 0.5f) {
 					trex.setTexture(1);
 					Ziemia.setPosition(0.0f, 0.0f);
@@ -180,7 +187,7 @@ int main()
 			}
 
 			trex.applyGravity();
-			score.update(multiplier);
+			score.update(multiplier, point_sound);
 
 			Collider::checkCollision(trex, cactus.getGlobalBounds(), death, start, death_sound);
 			Collider::checkCollision(trex, cactus2.getGlobalBounds(), death, start, death_sound);
@@ -207,7 +214,6 @@ int main()
 				file << std::endl;
 				file.close();
 			}
-
 		}
     }
 }
