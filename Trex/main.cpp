@@ -168,9 +168,9 @@ int main()
 
 			Ziemia.move(multiplier);
 			Ziemia2.move(multiplier);
-			cactus.moveAndReset(multiplier);
-			cactus2.moveAndReset(multiplier);
-			cactus3.moveAndReset(multiplier);
+			cactus.move(multiplier);
+			cactus2.move(multiplier);
+			cactus3.move(multiplier);
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 				trex.jump();

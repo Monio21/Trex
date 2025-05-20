@@ -8,6 +8,6 @@ public:
 	~Cactus() = default;
 
 	sf::FloatRect getGlobalBounds();
-	void moveAndReset(float multiplier);
+	void move(float multiplier) override;
 };
 

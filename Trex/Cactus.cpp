@@ -11,7 +11,7 @@ sf::FloatRect Cactus::getGlobalBounds()
 {
 	return rect.getGlobalBounds();
 }
-void Cactus::moveAndReset(float multiplier) {
+void Cactus::move(float multiplier) {
 	rect.move({ movementSpeed * multiplier, 0 });
 
 	static std::mt19937 generate(static_cast<unsigned int>(std::time(nullptr)));

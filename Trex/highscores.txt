@@ -14,3 +14,4 @@ Here is the list of your highscores from every game:
 19/05/2025 20:20:01 | Highscore: 406
 19/05/2025 20:22:20 | Highscore: 333
 19/05/2025 20:24:45 | Highscore: 639
+20/05/2025 11:54:52 | Highscore: 682
