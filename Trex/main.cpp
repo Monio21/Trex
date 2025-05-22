@@ -50,6 +50,7 @@ int main()
 	start_text.setCharacterSize(60);
 	start_text.setPosition({ 200.0f, 206.0f });
 
+
 	sf::Text end_text(font);
 	end_text.setFillColor(sf::Color::Black);
 	end_text.setCharacterSize(60);
@@ -57,6 +58,11 @@ int main()
 
     Score score(score_text);
 	score.setHighscore();
+
+	sf::Text highscore_text(font);
+	highscore_text.setFillColor(sf::Color::Black);
+	highscore_text.setCharacterSize(30);
+	highscore_text.setPosition({ 680.0f, 10.0f });
 
     sf::Texture TrexTextureIdle;
 	sf::Texture TrexTextureRun;
@@ -194,6 +200,8 @@ int main()
 			Collider::checkCollision(trex, cactus3.getGlobalBounds(), death, start, death_sound);
 		}
     
+		highscore_text.setString("Highscore: " + std::to_string(score.getHighScore()));
+		window.draw(highscore_text);
 		trex.draw(window);
 		score.draw(window);
 		cactus.draw(window);
@@ -210,7 +218,7 @@ int main()
 			localtime_s(&local_time, &now);
 			std::ofstream file_hs(path_hs, std::ios::app);
 			if (file_hs) {
-				file_hs << std::put_time(&local_time, "%d/%m/%Y %H:%M:%S") << " | Highscore: " << score.getHighScore();
+				file_hs << std::put_time(&local_time, "%d/%m/%Y %H:%M:%S") << " | HighScore: " << score.getHighScore();
 				file_hs << std::endl;
 				file_hs.close();
 			}
