@@ -56,6 +56,7 @@ int main()
 	end_text.setPosition({ 100.0f, 100.0f });
 
     Score score(score_text);
+	score.setHighscore();
 
     sf::Texture TrexTextureIdle;
 	sf::Texture TrexTextureRun;
@@ -80,8 +81,8 @@ int main()
 	trex.setPosition(80, 300);
     trex.setScale(6.0f, 6.0f);
 
-	background Ziemia(ZiemiaTexture);
-    background Ziemia2(ZiemiaTexture);
+	Background Ziemia(ZiemiaTexture);
+    Background Ziemia2(ZiemiaTexture);
 	Ziemia.setPosition(0.0f, 0.0f);
 	Ziemia2.setPosition(1440.0f, 0.0f);
 
@@ -92,8 +93,7 @@ int main()
 	Cactus cactus3(CactusTexture);
 	cactus3.setPosition(1500.0f, 325.0f);
 
-	std::filesystem::path path = "highscores.txt";
-	std::ofstream file(path, std::ios::app);
+	std::filesystem::path path_hs = "logs/highscores.txt";
 
 	float multiplier = 1.0f;
     int frames = 0;
@@ -208,11 +208,11 @@ int main()
 			std::time_t now = std::time(nullptr);
 			std::tm local_time;
 			localtime_s(&local_time, &now);
-			
-			if (file) {
-				file << std::put_time(&local_time,"%d/%m/%Y %H:%M:%S") << " | Highscore: " << score.getHighScore();
-				file << std::endl;
-				file.close();
+			std::ofstream file_hs(path_hs, std::ios::app);
+			if (file_hs) {
+				file_hs << std::put_time(&local_time, "%d/%m/%Y %H:%M:%S") << " | Highscore: " << score.getHighScore();
+				file_hs << std::endl;
+				file_hs.close();
 			}
 		}
     }

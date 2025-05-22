@@ -3,11 +3,11 @@
 #include <random>
 #include <ctime>
 
-class background 
+class Background 
 {
 public:
-	background(sf::Texture texture);
-	virtual ~background() = default;
+	Background(sf::Texture texture);
+	virtual ~Background() = default;
 
 	virtual void setPosition(float x, float y);
 	virtual sf::Vector2f getPosition();

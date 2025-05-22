@@ -21,7 +21,7 @@
     <ClCompile Include="Trex.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="background.cpp">
+    <ClCompile Include="Background.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="Score.cpp">
@@ -41,7 +41,7 @@
     <ClInclude Include="Trex.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="background.h">
+    <ClInclude Include="Background.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="Score.h">

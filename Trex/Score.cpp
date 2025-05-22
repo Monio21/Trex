@@ -26,3 +26,26 @@ int Score::getScore() {
 int Score::getHighScore() {
 	return highscore;
 }
+void Score::setHighscore() {
+	std::filesystem::path path = "logs/highscores.txt";
+	std::ifstream file(path);
+	std::vector<int> localHighScores;
+	std::string line;
+	std::regex reg(R"(Highscore:\s*(\d+))");
+	std::smatch match;
+	int var;
+	
+	if (file) {
+		std::getline(file, line);
+		std::getline(file, line);
+		
+		while (std::getline(file, line)) {
+			if (std::regex_search(line, match, reg)) {
+				var = std::stoi(match[1]);
+				localHighScores.push_back(var);
+			}
+		}
+		file.close();
+	}
+	highscore = *std::max_element(localHighScores.begin(), localHighScores.end());
+}

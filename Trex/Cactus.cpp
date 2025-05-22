@@ -2,7 +2,7 @@
 
 
 Cactus::Cactus(sf::Texture texture)
-	: background(texture)
+	: Background(texture)
 {
 	rect.setSize({ 230.0f, 295.0f });
 	rect.setScale({ 0.20f, 0.20f });

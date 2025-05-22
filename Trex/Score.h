@@ -1,6 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <filesystem>
+#include <sstream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <regex>
 
 class Score
 {
@@ -13,6 +19,7 @@ public:
 	void reset();
 	int getScore();
 	int getHighScore();
+	void setHighscore();
 private:
 	sf::Text text;
 	float distance;

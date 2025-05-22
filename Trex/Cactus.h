@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "background.h"
-class Cactus : public background
+#include "Background.h"
+class Cactus : public Background
 {
 public:
 	Cactus(sf::Texture texture);
