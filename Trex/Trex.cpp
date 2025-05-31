@@ -1,10 +1,17 @@
 #include "Trex.h"
 
-Trex::Trex(sf::Sprite sprite, sf::Texture texture_idle, sf::Texture texture_run, sf::Texture texture_jump, sf::Texture texture_death)
-	: Character(sprite), texture_idle(texture_idle), texture_run(texture_run), texture_jump(texture_jump), texture_death(texture_death),
+Trex::Trex(sf::Sprite sprite, sf::Texture& Idle)
+	: Character(sprite),
 	rect({ {0,0}, {24,16} }), frameWidth(24), velocityY(0.0f), gravity(300.0f), jumpHeight(330.0f),
 	isJumping(false), groundYpos(300.0f)
-{};
+{
+	// £adowanie tekstur
+	texture_idle = Idle;
+	texture_run.loadFromFile("olaf/base/move.png");
+	texture_jump.loadFromFile("olaf/base/jump.png");
+	texture_death.loadFromFile("olaf/base/dead.png");
+
+};
 void Trex::setTexture(int phase)
 {
 	if (phase == 1) {

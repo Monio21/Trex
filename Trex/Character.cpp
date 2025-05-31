@@ -1,7 +1,7 @@
 #include "Character.h"
 
 Character::Character(sf::Sprite sprite)
-	: sprite(sprite), timer(0.0f), switchTime(0.1f)
+	: sprite(sprite),timer(0.0f), switchTime(0.1f)
 {};
 void Character::setPosition(float x, float y)
 {

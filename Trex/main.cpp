@@ -43,6 +43,7 @@ int main()
     sf::Text score_text(font, "Score: 0");
     score_text.setFillColor(sf::Color::Black);
 	score_text.setCharacterSize(30);
+
     score_text.setPosition({10.0f, 10.0f});
 
 	sf::Text start_text(font, "Press ENTER to start");
@@ -65,23 +66,17 @@ int main()
 	highscore_text.setPosition({ 680.0f, 10.0f });
 
     sf::Texture TrexTextureIdle;
-	sf::Texture TrexTextureRun;
-	sf::Texture TrexTextureJump;
-	sf::Texture TrexTextureDeath;
 	sf::Texture ZiemiaTexture;
     sf::Texture CactusTexture;
 	sf::Texture Ziemia2Texture;
 
     TrexTextureIdle.loadFromFile("olaf/base/idle.png");
-	TrexTextureRun.loadFromFile("olaf/base/move.png");
-	TrexTextureJump.loadFromFile("olaf/base/jump.png");
-	TrexTextureDeath.loadFromFile("olaf/base/dead.png");
 	ZiemiaTexture.loadFromFile("pictures/desertday.jpg");
 	Ziemia2Texture.loadFromFile("pictures/desertnight.jpg");
 	CactusTexture.loadFromFile("pictures/cactus.png");
 
 	sf::Sprite Trex_sprite(TrexTextureIdle);
-	Trex trex(Trex_sprite, TrexTextureIdle, TrexTextureRun, TrexTextureJump, TrexTextureDeath);
+	Trex trex(Trex_sprite, TrexTextureIdle);
 	trex.setTextureRect();
     trex.setOrigin();
 	trex.setPosition(80, 300);
