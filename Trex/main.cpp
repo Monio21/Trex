@@ -23,7 +23,7 @@ int main()
     window.setIcon(Image.getSize(), Image.getPixelsPtr());
 
 	sf::Music music("audio/Jurassic Park theme song..ogg");
-	music.setVolume(50.0f);
+	music.setVolume(100.0f);
 	music.play();
 	music.setLooping(true);
 	music.setPlayingOffset(sf::seconds(30.0f));

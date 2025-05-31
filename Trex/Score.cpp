@@ -31,7 +31,7 @@ void Score::setHighscore() {
 	std::ifstream file(path);
 	std::vector<int> localHighScores;
 	std::string line;
-	std::regex reg(R"(Highscore:\s*(\d+))");
+	std::regex reg(R"(HighScore:\s*(\d+))");
 	std::smatch match;
 	int var;
 	
