@@ -147,6 +147,7 @@
     <ClCompile Include="Cactus.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Trex.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Cactus.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Trex.h" />
   </ItemGroup>

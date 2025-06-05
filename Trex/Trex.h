@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Character.h"
 
 class Trex : public Character
@@ -11,7 +12,7 @@ public:
 	void setTexture(int phase) override;
 	void setTextureRect() override;
 	void update(float deltaTime) override;
-	void jump();
+	void jump(sf::Sound &sound);
 	void applyGravity();
 
 private:

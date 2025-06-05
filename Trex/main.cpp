@@ -174,8 +174,7 @@ int main()
 			cactus3.move(multiplier);
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-				trex.jump();
-				jump_sound.play();
+				trex.jump(jump_sound);
 				trex.setTexture(3);
 
 			}

@@ -5,7 +5,6 @@ Trex::Trex(sf::Sprite sprite, sf::Texture& Idle)
 	rect({ {0,0}, {24,16} }), frameWidth(24), velocityY(0.0f), gravity(300.0f), jumpHeight(330.0f),
 	isJumping(false), groundYpos(300.0f)
 {
-	// £adowanie tekstur
 	texture_idle = Idle;
 	texture_run.loadFromFile("olaf/base/move.png");
 	texture_jump.loadFromFile("olaf/base/jump.png");
@@ -43,11 +42,12 @@ void Trex::update(float deltaTime)
 		timer = 0.0f;
 	}
 }
-void Trex::jump()
+void Trex::jump(sf::Sound &sound)
 {
 	if (!isJumping) {
 		velocityY = -jumpHeight;
 		isJumping = true;
+		sound.play();
 		setTexture(3);
 	}
 }
